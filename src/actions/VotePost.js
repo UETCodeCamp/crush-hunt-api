@@ -1,12 +1,21 @@
 const VotePost = require('../models/VotePost');
+const Post = require('../models/Post');
+const {MINIMUM_VOTES_TO_PUBLISH} = require('../constants/post');
 
 exports.vote = ({userId, postId}) => {
-    return VotePost.findOne({
-        post: postId,
-        owner: userId
-    }).then(vote => {
+    return Promise.all([
+        Post.findById(postId),
+        VotePost.findOne({
+            post: postId,
+            owner: userId
+        })
+    ]).then(([post, vote]) => {
         if (vote) {
             throw new Error('You voted for this post.');
+        }
+
+        if (!post) {
+            throw new Error('Post not found.');
         }
 
         const newVote = VotePost({
@@ -14,7 +23,28 @@ exports.vote = ({userId, postId}) => {
             owner: userId
         });
 
-        return newVote.save();
+        return newVote.save()
+            .then(vote => {
+                const totalVotes = post.get('totalVotes');
+                const status = post.get('status');
+
+                let setPost = {
+                    totalVotes: totalVotes + 1,
+                };
+
+                if (totalVotes >= MINIMUM_VOTES_TO_PUBLISH && status !== 'publish') {
+                    setPost = Object.assign({}, setPost, {
+                        status: 'publish',
+                        published: Date.now()
+                    });
+                }
+
+                return post.update({
+                    $set: setPost
+                }).then(() => {
+                    return Promise.resolve(vote);
+                });
+            });
     });
 };
 

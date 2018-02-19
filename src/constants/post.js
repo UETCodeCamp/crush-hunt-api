@@ -1,0 +1,1 @@
+exports.MINIMUM_VOTES_TO_PUBLISH = 10;

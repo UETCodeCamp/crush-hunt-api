@@ -36,8 +36,8 @@ const postSchema = new Schema({
     },
     status: {
         type: String,
-        default: 'publish',
-        enum: ['publish', 'pending', 'draft'],
+        default: 'pending',
+        enum: ['draft', 'pending', 'publish'],
         index: true,
     },
     published: {
