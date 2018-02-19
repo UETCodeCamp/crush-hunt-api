@@ -43,7 +43,7 @@ exports.deleteComment = ({userId, postId, commentId}) => {
 };
 
 /**
- * Sort by total number of votes.
+ * Sort by number of total votes.
  */
 exports.listHostComments = ({postId}) => {
     return Comment.find({

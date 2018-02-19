@@ -8,8 +8,8 @@ exports.upload = (req, res) => {
     const {path} = image;
 
     return UploadServices.upload({pathFile: path})
-        .then(sendSuccess)
-        .catch(catchError);
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.create = (req, res) => {

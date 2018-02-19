@@ -12,8 +12,8 @@ exports.addComment = (req, res) => {
     const {content} = Object.assign({}, defaultArgs, req.body);
 
     CommentActions.addComment({userId, postId, content})
-        .then(sendSuccess)
-        .catch(catchError);
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.deleteComment = (req, res) => {
@@ -23,8 +23,8 @@ exports.deleteComment = (req, res) => {
 
 
     CommentActions.deleteComment({userId, postId, commentId})
-        .then(sendSuccess)
-        .catch(catchError);
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.updateComment = (req, res) => {
@@ -35,16 +35,16 @@ exports.listFreshComments = (req, res) => {
     const postId = req.params['id'];
 
     CommentActions.listFreshComments({postId})
-        .then(sendSuccess)
-        .catch(catchError);
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.listHotComments = (req, res) => {
     const postId = req.params['id'];
 
     CommentActions.listHostComments({postId})
-        .then(sendSuccess)
-        .catch(catchError);
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.voteComment = (req, res) => {
@@ -53,8 +53,8 @@ exports.voteComment = (req, res) => {
     const {commentId} = req.params;
 
     VoteCommentActions.vote({userId, commentId, postId})
-        .then(sendSuccess)
-        .catch(catchError);
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.unVoteComment = (req, res) => {
@@ -63,6 +63,6 @@ exports.unVoteComment = (req, res) => {
     const {commentId} = req.params;
 
     VoteCommentActions.unVote({userId, commentId, postId})
-        .then(sendSuccess)
-        .catch(catchError);
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };

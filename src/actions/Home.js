@@ -1,7 +1,7 @@
 const Post = require('../models/Post');
 
 /**
- * Sort by votes total.
+ * Sort by number of total votes.
  */
 exports.hot = ({page = 1, limit = 10}) => {
     const skip = (page - 1) * limit;
