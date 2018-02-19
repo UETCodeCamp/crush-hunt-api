@@ -1,6 +1,7 @@
 const Mongoose = require('mongoose');
 const {Schema} = Mongoose;
 const connection = require('../app.database');
+const isURL = require('validator/lib/isURL');
 
 const postSchema = new Schema({
     owner: {
@@ -11,7 +12,13 @@ const postSchema = new Schema({
         type: String,
         trim: true
     },
-    url: {},
+    url: {
+        type: String,
+        trim: true,
+        required: function () {
+            return isURL(this.url);
+        }
+    },
     totalVotes: {
         type: Number,
         index: true,

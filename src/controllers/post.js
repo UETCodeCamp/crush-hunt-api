@@ -1,21 +1,41 @@
-const PostActiosn = require('../actions/Post');
+const PostActions = require('../actions/Post');
 const VotePostActions = require('../actions/VotePost');
 const {sendSuccess, catchError} = require('../helpers/response');
 
 exports.create = (req, res) => {
+    const userId = req['userId'];
 
+    const defaultArgs = {
+        title: '',
+        url: ''
+    };
+
+    const {title, url} = Object.assign({}, defaultArgs, req.body);
+    PostActions.create({userId, title, url})
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.detail = (req, res) => {
+    const userId = req['userId'];
+    const postId = req.params['id'];
 
+    PostActions.detail({postId, userId})
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.update = (req, res) => {
-
+    res.send('@todo');
 };
 
 exports.delete = (req, res) => {
+    const userId = req['userId'];
+    const postId = req.params['id'];
 
+    PostActions.delete({userId, postId})
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.vote = (req, res) => {

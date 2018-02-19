@@ -1,7 +1,20 @@
 const Post = require('../models/Post');
 
-exports.detail = ({postId}) => {
-    return Post.findById(postId);
+exports.create = ({userId, title, url}) => {
+    const post = Post({
+        owner: userId,
+        title,
+        url
+    });
+
+    return post.save();
+};
+
+exports.detail = ({postId, userId}) => {
+    console.log(userId);
+
+    return Post.findById(postId)
+        .populate('owner');
 };
 
 exports.delete = ({userId, postId}) => {

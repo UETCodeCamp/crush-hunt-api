@@ -26,13 +26,13 @@ router.get('/home/fresh', home.fresh);
 /**
  * Posts
  */
-router.get('/post/:id', auth.isAuthorized, post.detail);
+router.get('/post/:id', post.detail);
 router.put('/post/:id', auth.isAuthorized, post.create);
 router.post('/post/:id', auth.isAuthorized, post.update);
 router.delete('/post/:id', auth.isAuthorized, post.delete);
 
-router.get('/post/:id/comments', auth.isAuthorized, comment.listFreshComments);
-router.get('/post/:id/comments/hot', auth.isAuthorized, comment.listHotComments);
+router.get('/post/:id/comments', comment.listFreshComments);
+router.get('/post/:id/comments/hot', comment.listHotComments);
 router.put('/post/:id/comment', auth.isAuthorized, comment.addComment);
 router.put('/post/:id/comment/:commentId', auth.isAuthorized, comment.deleteComment);
 router.post('/post/:id/comment/:commentId', auth.isAuthorized, comment.updateComment);
