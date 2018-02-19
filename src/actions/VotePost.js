@@ -18,7 +18,7 @@ exports.vote = ({userId, postId}) => {
             throw new Error('Post not found.');
         }
 
-        const newVote = VotePost({
+        const newVote = new VotePost({
             post: postId,
             owner: userId
         });

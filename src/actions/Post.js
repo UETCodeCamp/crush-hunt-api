@@ -1,7 +1,7 @@
 const Post = require('../models/Post');
 
 exports.create = ({userId, title, url}) => {
-    const post = Post({
+    const post = new Post({
         owner: userId,
         title,
         url
