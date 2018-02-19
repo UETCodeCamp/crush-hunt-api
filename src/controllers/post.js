@@ -1,6 +1,16 @@
 const PostActions = require('../actions/Post');
 const VotePostActions = require('../actions/VotePost');
 const {sendSuccess, catchError} = require('../helpers/response');
+const UploadServices = require('../services/UploadServices');
+
+exports.upload = (req, res) => {
+    const {image} = req.file;
+    const {path} = image;
+
+    return UploadServices.upload({pathFile: path})
+        .then(sendSuccess)
+        .catch(catchError);
+};
 
 exports.create = (req, res) => {
     const userId = req['userId'];

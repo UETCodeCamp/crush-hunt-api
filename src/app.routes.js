@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const upload = require('./libs/upload');
 
 const {auth, home, post, user, comment} = require('./controllers');
 
@@ -27,6 +28,7 @@ router.get('/home/fresh', home.fresh);
  * Posts
  */
 router.get('/post/:id', post.detail);
+router.get('/post/upload', auth.isAuthorized, upload.single('image'), post.upload);
 router.put('/post/:id', auth.isAuthorized, post.create);
 router.post('/post/:id', auth.isAuthorized, post.update);
 router.delete('/post/:id', auth.isAuthorized, post.delete);
