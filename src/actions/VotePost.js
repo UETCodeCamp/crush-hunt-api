@@ -17,3 +17,16 @@ exports.vote = ({userId, postId}) => {
         return newVote.save();
     });
 };
+
+exports.unVote = ({userId, postId}) => {
+    return VotePost.findOne({
+        post: postId,
+        owner: userId
+    }).then(vote => {
+        if (!vote) {
+            throw new Error('You have not voted this post.');
+        }
+
+        return vote.remove();
+    });
+};
