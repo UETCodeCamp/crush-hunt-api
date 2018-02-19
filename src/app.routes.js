@@ -27,6 +27,7 @@ router.get('/home/fresh', home.fresh);
 /**
  * Posts
  */
+router.get('/post/pending', post.listPendingPosts);
 router.get('/post/:id', post.detail);
 router.get('/post/upload', auth.isAuthorized, upload.single('image'), post.upload);
 router.put('/post/:id', auth.isAuthorized, post.create);

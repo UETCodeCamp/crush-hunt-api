@@ -6,7 +6,10 @@ const Post = require('../models/Post');
 exports.hot = ({page = 1, limit = 10}) => {
     const skip = (page - 1) * limit;
 
-    Post.find({})
+    Post
+        .find({
+            status: 'publish'
+        })
         .sort({
             totalVotes: 1
         })
@@ -20,7 +23,10 @@ exports.hot = ({page = 1, limit = 10}) => {
 exports.trending = ({page = 1, limit = 10}) => {
     const skip = (page - 1) * limit;
 
-    Post.find({})
+    Post
+        .find({
+            status: 'publish'
+        })
         .sort({
             scoreTrend: 1
         })
@@ -34,7 +40,10 @@ exports.trending = ({page = 1, limit = 10}) => {
 exports.fresh = ({page = 1, limit = 10}) => {
     const skip = (page - 1) * limit;
 
-    Post.find({})
+    Post
+        .find({
+            status: 'publish'
+        })
         .sort({
             created: 1
         })

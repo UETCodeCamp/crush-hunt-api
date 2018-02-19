@@ -66,3 +66,19 @@ exports.unVote = (req, res) => {
         .then(sendSuccess(req, res))
         .catch(catchError(req, res));
 };
+
+exports.listPendingPosts = (req, res) => {
+    const defaultArgs = {
+        page: 1,
+        limit: 10
+    };
+
+    const {page, limit} = Object.assign({}, defaultArgs, req.query);
+    PostActions
+        .listPendingPosts({
+            page: parseInt(page, 10),
+            limit: parseInt(limit, 10)
+        })
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
+};

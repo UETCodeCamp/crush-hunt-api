@@ -23,3 +23,17 @@ exports.delete = ({userId, postId}) => {
         owner: userId,
     });
 };
+
+exports.listPendingPosts = ({page = 1, limit = 10}) => {
+    const skip = (page - 1) * limit;
+
+    Post
+        .find({
+            status: 'pending'
+        })
+        .sort({
+            totalVotes: 1
+        })
+        .skip(skip)
+        .limit(limit);
+};
