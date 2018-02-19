@@ -27,7 +27,21 @@ const postSchema = new Schema({
         index: true,
         default: 0,
     },
+    status: {
+        type: String,
+        default: 'publish',
+        enum: ['publish', 'pending', 'draft'],
+        index: true,
+    },
+    published: {
+        type: Date,
+        default: Date.now
+    },
     created: {
+        type: Date,
+        default: Date.now
+    },
+    updated: {
         type: Date,
         default: Date.now
     },

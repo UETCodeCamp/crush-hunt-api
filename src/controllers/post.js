@@ -1,5 +1,4 @@
 const PostActiosn = require('../actions/Post');
-const CommentActions = require('../actions/Comment');
 const VotePostActions = require('../actions/VotePost');
 
 exports.create = (req, res) => {
@@ -22,6 +21,6 @@ exports.vote = (req, res) => {
 
 };
 
-exports.comment = (req, res) => {
+exports.unVote = (req, res) => {
 
 };
