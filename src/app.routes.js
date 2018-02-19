@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const upload = require('./libs/upload');
 
-const {auth, home, post, user, comment} = require('./controllers');
+const {auth, home, post, user, comment, favorite} = require('./controllers');
 
 /**
  * Register routes.
@@ -42,8 +42,11 @@ router.post('/post/:id/comment/:commentId', auth.isAuthorized, comment.updateCom
 router.post('/post/:id/comment/:commentId/vote', auth.isAuthorized, comment.voteComment);
 router.post('/post/:id/comment/:commentId/un-vote', auth.isAuthorized, comment.unVoteComment);
 
-router.put('/post/:id/vote', auth.isAuthorized, post.vote);
-router.put('/post/:id/un-vote', auth.isAuthorized, post.unVote);
+router.post('/post/:id/vote', auth.isAuthorized, post.vote);
+router.post('/post/:id/un-vote', auth.isAuthorized, post.unVote);
+
+router.put('/post/:id/vote/favoriteId', auth.isAuthorized, favorite.addFavorite);
+router.delete('/post/:id/favorite/:favoriteId', auth.isAuthorized, favorite.removeFavorite);
 
 /**
  * Users
