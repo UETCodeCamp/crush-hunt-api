@@ -1,4 +1,5 @@
 const CommentActions = require('../actions/Comment');
+const VoteCommentActions = require('../actions/VoteComment');
 const {sendSuccess, catchError} = require('../helpers/response');
 
 exports.addComment = (req, res) => {
@@ -51,7 +52,9 @@ exports.voteComment = (req, res) => {
     const postId = req.params['id'];
     const {commentId} = req.params;
 
-    res.send('@todo');
+    VoteCommentActions.vote({userId, commentId, postId})
+        .then(sendSuccess)
+        .catch(catchError);
 };
 
 exports.unVoteComment = (req, res) => {
@@ -59,5 +62,7 @@ exports.unVoteComment = (req, res) => {
     const postId = req.params['id'];
     const {commentId} = req.params;
 
-    res.send('@todo');
+    VoteCommentActions.unVote({userId, commentId, postId})
+        .then(sendSuccess)
+        .catch(catchError);
 };
