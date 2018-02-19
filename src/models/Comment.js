@@ -14,6 +14,11 @@ const commentSchema = new Schema({
     content: {
         type: String
     },
+    totalVotes: {
+        type: Number,
+        default: 0,
+        index: true,
+    },
     created: {
         type: Date,
         default: Date.now

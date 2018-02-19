@@ -7,7 +7,7 @@ const _getTotalComments = (postId) => {
     });
 };
 
-exports.comment = ({userId, postId, content}) => {
+exports.addComment = ({userId, postId, content}) => {
     const _comment = new Comment({
         owner: userId,
         post: postId,
@@ -32,4 +32,34 @@ exports.comment = ({userId, postId, content}) => {
                     return Promise.resolve(comment);
                 });
         });
+};
+
+exports.deleteComment = ({userId, postId, commentId}) => {
+    return Comment.remove({
+        _id: commentId,
+        owner: userId,
+        post: postId
+    });
+};
+
+/**
+ * Sort by total number of votes.
+ */
+exports.listHostComments = ({postId}) => {
+    return Comment.find({
+        post: postId
+    }).sort({
+        totalVotes: 1
+    });
+};
+
+/**
+ * Sort by created time.
+ */
+exports.listFreshComments = ({postId}) => {
+    return Comment.find({
+        post: postId
+    }).sort({
+        created: 1
+    });
 };

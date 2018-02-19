@@ -36,8 +36,10 @@ router.delete('/post/:id', auth.isAuthorized, post.delete);
 router.get('/post/:id/comments', comment.listFreshComments);
 router.get('/post/:id/comments/hot', comment.listHotComments);
 router.put('/post/:id/comment', auth.isAuthorized, comment.addComment);
-router.put('/post/:id/comment/:commentId', auth.isAuthorized, comment.deleteComment);
+router.delete('/post/:id/comment/:commentId', auth.isAuthorized, comment.deleteComment);
 router.post('/post/:id/comment/:commentId', auth.isAuthorized, comment.updateComment);
+router.post('/post/:id/comment/:commentId/vote', auth.isAuthorized, comment.voteComment);
+router.post('/post/:id/comment/:commentId/un-vote', auth.isAuthorized, comment.unVoteComment);
 
 router.put('/post/:id/vote', auth.isAuthorized, post.vote);
 router.put('/post/:id/un-vote', auth.isAuthorized, post.unVote);
