@@ -7,8 +7,8 @@ const {auth, home, post, user, comment, favorite} = require('./controllers');
 /**
  * Register routes.
  */
-router.get('/', (req, res) => res.send('Hello!'));
-router.get('/ping', (req, res) => res.send('pong'));
+router.all('/', (req, res) => res.send('Hello!'));
+router.all('/ping', (req, res) => res.send('pong'));
 
 /**
  * Auth
@@ -27,35 +27,35 @@ router.get('/home/fresh', home.fresh);
 /**
  * Posts
  */
-router.get('/post/pending', post.listPendingPosts);
-router.get('/post/:id', post.detail);
-router.get('/post/upload', auth.isAuthorized, upload.single('image'), post.upload);
-router.put('/post/:id', auth.isAuthorized, post.create);
-router.post('/post/:id', auth.isAuthorized, post.update);
-router.delete('/post/:id', auth.isAuthorized, post.delete);
+router.get('/posts/pending', post.listPendingPosts);
+router.get('/posts/:id', post.detail);
+router.get('/posts/upload', auth.isAuthorized, upload.single('image'), post.upload);
+router.post('/posts/:id', auth.isAuthorized, post.create);
+router.put('/posts/:id', auth.isAuthorized, post.update);
+router.delete('/posts/:id', auth.isAuthorized, post.delete);
 
-router.get('/post/:id/comments', comment.listFreshComments);
-router.get('/post/:id/comments/hot', comment.listHotComments);
-router.put('/post/:id/comment', auth.isAuthorized, comment.addComment);
-router.delete('/post/:id/comment/:commentId', auth.isAuthorized, comment.deleteComment);
-router.post('/post/:id/comment/:commentId', auth.isAuthorized, comment.updateComment);
-router.post('/post/:id/comment/:commentId/vote', auth.isAuthorized, comment.voteComment);
-router.post('/post/:id/comment/:commentId/un-vote', auth.isAuthorized, comment.unVoteComment);
+router.get('/posts/:id/comments', comment.listFreshComments);
+router.get('/posts/:id/comments/hot', comment.listHotComments);
+router.post('/posts/:id/comments', auth.isAuthorized, comment.addComment);
+router.put('/posts/:id/comments/:commentId', auth.isAuthorized, comment.updateComment);
+router.delete('/posts/:id/comments/:commentId', auth.isAuthorized, comment.deleteComment);
+router.post('/posts/:id/comments/:commentId/vote', auth.isAuthorized, comment.voteComment);
+router.post('/posts/:id/comments/:commentId/un-vote', auth.isAuthorized, comment.unVoteComment);
 
-router.post('/post/:id/vote', auth.isAuthorized, post.vote);
-router.post('/post/:id/un-vote', auth.isAuthorized, post.unVote);
+router.post('/posts/:id/vote', auth.isAuthorized, post.vote);
+router.post('/posts/:id/un-vote', auth.isAuthorized, post.unVote);
 
-router.put('/post/:id/vote/favoriteId', auth.isAuthorized, favorite.addFavorite);
-router.delete('/post/:id/favorite/:favoriteId', auth.isAuthorized, favorite.removeFavorite);
+router.post('/posts/:id/favorites', auth.isAuthorized, favorite.addFavorite);
+router.delete('/posts/:id/favorites/:favoriteId', auth.isAuthorized, favorite.removeFavorite);
 
 /**
  * Users
  */
-router.get('/user/profile', auth.isAuthorized, user.profile);
-router.get('/user/comments', auth.isAuthorized, user.myComments);
-router.get('/user/posts', auth.isAuthorized, user.myPosts);
-router.get('/user/votes', auth.isAuthorized, user.myVotes);
-router.get('/user/favorites', auth.isAuthorized, user.myFavorites);
+router.get('/users/profile', auth.isAuthorized, user.profile);
+router.get('/users/my-comments', auth.isAuthorized, user.myComments);
+router.get('/users/my-posts', auth.isAuthorized, user.myPosts);
+router.get('/users/my-votes', auth.isAuthorized, user.myVotes);
+router.get('/users/my-favorites', auth.isAuthorized, user.myFavorites);
 
 /**
  * Exports.
