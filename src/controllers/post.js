@@ -4,8 +4,8 @@ const {sendSuccess, catchError} = require('../helpers/response');
 const UploadServices = require('../services/UploadServices');
 
 exports.upload = (req, res) => {
-    const {image} = req.file;
-    const {path} = image;
+    const {file} = req;
+    const {path} = file;
 
     return UploadServices.upload({pathFile: path})
         .then(sendSuccess(req, res))

@@ -29,7 +29,7 @@ router.get('/home/fresh', home.fresh);
  */
 router.get('/posts/pending', post.listPendingPosts);
 router.get('/posts/:id', post.detail);
-router.get('/posts/upload', auth.isAuthorized, upload.single('image'), post.upload);
+router.post('/posts/upload', upload.single('image'), post.upload);
 router.post('/posts/:id', auth.isAuthorized, post.create);
 router.put('/posts/:id', auth.isAuthorized, post.update);
 router.delete('/posts/:id', auth.isAuthorized, post.delete);

@@ -1,6 +1,14 @@
-exports.upload = ({pathFile}) => {
-    const publicUrl = '';
-    //@todo change this
+const Imgur = require('imgur');
+const fs = require('fs');
 
-    return Promise.resolve(publicUrl);
+exports.upload = ({pathFile}) => {
+    if (!fs.existsSync(pathFile)) {
+        throw new Error('File not found.');
+    }
+
+    return Imgur.uploadFile(pathFile).then(result => {
+        const {data} = result;
+
+        return Promise.resolve(data.link);
+    });
 };
