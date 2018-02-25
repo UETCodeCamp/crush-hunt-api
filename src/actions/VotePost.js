@@ -1,6 +1,7 @@
 const VotePost = require('../models/VotePost');
 const Post = require('../models/Post');
 const {MINIMUM_VOTES_TO_PUBLISH} = require('../constants/post');
+const PostActions = require('../actions/Post');
 
 exports.vote = ({userId, postId}) => {
     return Promise.all([
@@ -42,10 +43,10 @@ exports.vote = ({userId, postId}) => {
                 return post.update({
                     $set: setPost
                 }).then(() => {
-                    return Promise.resolve(vote);
-                });
+                    return PostActions.computedScoreTrending(postId);
+                }).then(() => Promise.resolve(vote));
             });
-    });
+    })
 };
 
 exports.unVote = ({userId, postId}) => {
@@ -57,6 +58,9 @@ exports.unVote = ({userId, postId}) => {
             throw new Error('You have not voted this post.');
         }
 
-        return vote.remove();
+        return vote.remove()
+            .then(() => {
+                return PostActions.computedScoreTrending(postId);
+            });
     });
 };

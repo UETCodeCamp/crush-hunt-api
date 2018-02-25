@@ -1,4 +1,6 @@
 const Post = require('../models/Post');
+const Moment = require('moment');
+const {getScoreTrending} = require("../helpers/common");
 
 exports.create = ({userId, title, url}) => {
     const post = new Post({
@@ -36,4 +38,28 @@ exports.listPendingPosts = ({page = 1, limit = 10}) => {
         })
         .skip(skip)
         .limit(limit);
+};
+
+exports.computedScoreTrending = (postId) => {
+    return Post.findById(postId)
+        .then(post => {
+            if (!post) {
+                throw new Error('Post not found.');
+            }
+
+            const totalVotes = post.get('totalVotes') || 0;
+            const published = Moment(post.get('published'), Date.now());
+            const now = Moment();
+
+            const age = now.diff(published);
+            const score = getScoreTrending(totalVotes, age);
+
+            return post.update({
+                $set: {
+                    scoreTrend: score
+                }
+            });
+        }).then(() => {
+            return Post.findById(postId);
+        });
 };
