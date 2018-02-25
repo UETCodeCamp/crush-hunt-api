@@ -2,6 +2,25 @@ const Post = require('../models/Post');
 const Moment = require('moment');
 const {getScoreTrending} = require("../helpers/common");
 
+exports.update = ({userId, postId, title, url}) => {
+    return Post.findOne({
+        _id: postId,
+        owner: userId
+    }).then(post => {
+        if (!post) {
+            throw new Error('Post not found.');
+        }
+
+        return post.update({
+            $set: {
+                title,
+                url,
+                updated: Date.now()
+            }
+        }).then(() => Post.findById(postId));
+    });
+};
+
 exports.create = ({userId, title, url}) => {
     const post = new Post({
         owner: userId,

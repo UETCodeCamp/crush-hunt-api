@@ -36,7 +36,19 @@ exports.detail = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    res.send('@todo');
+    const userId = req['userId'];
+    const postId = req.params['id'];
+
+    const defaultArgs = {
+        title: '',
+        url: ''
+    };
+
+    const {title, url} = Object.assign({}, defaultArgs, req.body);
+
+    PostActions.update({userId, postId, title, url})
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.delete = (req, res) => {
