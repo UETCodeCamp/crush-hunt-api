@@ -21,14 +21,25 @@ exports.deleteComment = (req, res) => {
     const postId = req.params['id'];
     const {commentId} = req.params;
 
-
     CommentActions.deleteComment({userId, postId, commentId})
         .then(sendSuccess(req, res))
         .catch(catchError(req, res));
 };
 
 exports.updateComment = (req, res) => {
-    res.send('@todo');
+    const {userId} = req;
+    const postId = req.params['id'];
+    const {commentId} = req.params;
+
+    const defaultArgs = {
+        content: ''
+    };
+
+    const {content} = Object.assign({}, defaultArgs, req.body);
+
+    CommentActions.updateComment({userId, commentId, postId, content})
+        .then(sendSuccess(req, res))
+        .catch(catchError(req, res));
 };
 
 exports.listFreshComments = (req, res) => {

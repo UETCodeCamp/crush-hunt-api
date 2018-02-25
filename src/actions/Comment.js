@@ -7,6 +7,23 @@ const _getTotalComments = (postId) => {
     });
 };
 
+exports.updateComment = ({userId, commentId, content}) => {
+    return Comment.findOne({
+        _id: commentId,
+        owner: userId
+    }).then(comment => {
+        if (!comment) {
+            throw new Error('Email not found.');
+        }
+
+        return comment.update({
+            $set: {
+                content
+            }
+        }).then(() => Comment.findById(commentId));
+    });
+};
+
 exports.addComment = ({userId, postId, content}) => {
     const _comment = new Comment({
         owner: userId,
