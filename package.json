@@ -1,5 +1,5 @@
 {
-  "name": "girl-hunt-api",
+  "name": "crush-hunt-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UETCodeCamp/girl-hunt-api.git"
+    "url": "git+https://github.com/UETCodeCamp/crush-hunt-api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/UETCodeCamp/girl-hunt-api/issues"
+    "url": "https://github.com/UETCodeCamp/crush-hunt-api/issues"
   },
-  "homepage": "https://github.com/UETCodeCamp/girl-hunt-api#readme",
+  "homepage": "https://github.com/UETCodeCamp/crush-hunt-api#readme",
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",

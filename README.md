@@ -1,4 +1,4 @@
-# Girl Hunt App API
+# Crush Hunt App API
 
 ## Features
 
