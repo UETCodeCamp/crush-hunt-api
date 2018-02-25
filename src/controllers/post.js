@@ -7,7 +7,7 @@ exports.upload = (req, res) => {
     const {file} = req;
     const {path} = file;
 
-    return UploadServices.upload({pathFile: path})
+    return UploadServices.upload({pathFile: path, unLink: true})
         .then(sendSuccess(req, res))
         .catch(catchError(req, res));
 };

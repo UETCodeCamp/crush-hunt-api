@@ -1,7 +1,7 @@
 const Imgur = require('imgur');
 const fs = require('fs');
 
-exports.upload = ({pathFile}) => {
+exports.upload = ({pathFile, unLink = false}) => {
     if (!fs.existsSync(pathFile)) {
         throw new Error('File not found.');
     }
@@ -10,5 +10,11 @@ exports.upload = ({pathFile}) => {
         const {data} = result;
 
         return Promise.resolve(data.link);
+    }).then(publicUrl => {
+        if (unLink) {
+            fs.unlinkSync(pathFile);
+        }
+
+        return Promise.resolve(publicUrl);
     });
 };
