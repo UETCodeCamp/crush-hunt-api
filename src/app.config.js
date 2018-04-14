@@ -21,7 +21,7 @@ const config = {
         $filter: "env",
         $default: 6001,
         staging: process.env.GH_PORT_APP || 6002,
-        production: process.env.GH_PORT_APP || 6001
+        production: process.env.PORT || process.env.GH_PORT_APP || 6001
     },
     mongodb: {
         $filter: "env",
