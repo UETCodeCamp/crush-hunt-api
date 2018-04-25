@@ -1,5 +1,5 @@
 const HomeActions = require('../actions/Home');
-const {sendSuccess, catchError} = require('../helpers/response');
+const {sendSuccess, sendError} = require('../helpers/response');
 
 exports.hot = (req, res) => {
     const defaultArgs = {
@@ -15,7 +15,7 @@ exports.hot = (req, res) => {
             limit: parseInt(limit, 10)
         })
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.trending = (req, res) => {
@@ -32,7 +32,7 @@ exports.trending = (req, res) => {
             limit: parseInt(limit, 10)
         })
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.fresh = (req, res) => {
@@ -49,5 +49,5 @@ exports.fresh = (req, res) => {
             limit: parseInt(limit, 10)
         })
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };

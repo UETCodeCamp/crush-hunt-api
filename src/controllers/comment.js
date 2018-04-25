@@ -1,6 +1,6 @@
 const CommentActions = require('../actions/Comment');
 const VoteCommentActions = require('../actions/VoteComment');
-const {sendSuccess, catchError} = require('../helpers/response');
+const {sendSuccess, sendError} = require('../helpers/response');
 
 exports.addComment = (req, res) => {
     const {userId} = req;
@@ -13,7 +13,7 @@ exports.addComment = (req, res) => {
 
     CommentActions.addComment({userId, postId, content})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.deleteComment = (req, res) => {
@@ -23,7 +23,7 @@ exports.deleteComment = (req, res) => {
 
     CommentActions.deleteComment({userId, postId, commentId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.updateComment = (req, res) => {
@@ -39,7 +39,7 @@ exports.updateComment = (req, res) => {
 
     CommentActions.updateComment({userId, commentId, postId, content})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.listFreshComments = (req, res) => {
@@ -47,7 +47,7 @@ exports.listFreshComments = (req, res) => {
 
     CommentActions.listFreshComments({postId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.listHotComments = (req, res) => {
@@ -55,7 +55,7 @@ exports.listHotComments = (req, res) => {
 
     CommentActions.listHostComments({postId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.voteComment = (req, res) => {
@@ -65,7 +65,7 @@ exports.voteComment = (req, res) => {
 
     VoteCommentActions.vote({userId, commentId, postId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.unVoteComment = (req, res) => {
@@ -75,5 +75,5 @@ exports.unVoteComment = (req, res) => {
 
     VoteCommentActions.unVote({userId, commentId, postId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };

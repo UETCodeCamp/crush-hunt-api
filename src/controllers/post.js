@@ -1,6 +1,6 @@
 const PostActions = require('../actions/Post');
 const VotePostActions = require('../actions/VotePost');
-const {sendSuccess, catchError} = require('../helpers/response');
+const {sendSuccess, sendError} = require('../helpers/response');
 const UploadServices = require('../services/UploadServices');
 
 exports.upload = (req, res) => {
@@ -9,7 +9,7 @@ exports.upload = (req, res) => {
 
     return UploadServices.upload({pathFile: path, unLink: true})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.create = (req, res) => {
@@ -23,7 +23,7 @@ exports.create = (req, res) => {
     const {title, url} = Object.assign({}, defaultArgs, req.body);
     PostActions.create({userId, title, url})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.detail = (req, res) => {
@@ -32,7 +32,7 @@ exports.detail = (req, res) => {
 
     PostActions.detail({postId, userId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.update = (req, res) => {
@@ -48,7 +48,7 @@ exports.update = (req, res) => {
 
     PostActions.update({userId, postId, title, url})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.delete = (req, res) => {
@@ -57,7 +57,7 @@ exports.delete = (req, res) => {
 
     PostActions.delete({userId, postId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.vote = (req, res) => {
@@ -66,7 +66,7 @@ exports.vote = (req, res) => {
 
     VotePostActions.vote({userId, postId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 
 };
 
@@ -76,7 +76,7 @@ exports.unVote = (req, res) => {
 
     VotePostActions.unVote({userId, postId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.listPendingPosts = (req, res) => {
@@ -92,5 +92,5 @@ exports.listPendingPosts = (req, res) => {
             limit: parseInt(limit, 10)
         })
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };

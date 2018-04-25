@@ -1,12 +1,12 @@
 const UserActions = require('../actions/User');
-const {sendSuccess, catchError} = require('../helpers/response');
+const {sendSuccess, sendError} = require('../helpers/response');
 
 exports.profile = (req, res) => {
     const {userId} = req;
 
     UserActions.getProfile(userId)
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.myPosts = (req, res) => {
@@ -26,7 +26,7 @@ exports.myPosts = (req, res) => {
             limit: parseInt(limit, 10)
         })
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.myVotes = (req, res) => {
@@ -46,7 +46,7 @@ exports.myVotes = (req, res) => {
             limit: parseInt(limit, 10)
         })
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.myComments = (req, res) => {
@@ -66,7 +66,7 @@ exports.myComments = (req, res) => {
             limit: parseInt(limit, 10)
         })
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.myFavorites = (req, res) => {
@@ -86,5 +86,5 @@ exports.myFavorites = (req, res) => {
             limit: parseInt(limit, 10)
         })
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };

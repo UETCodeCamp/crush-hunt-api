@@ -1,5 +1,5 @@
 const FavoriteActions = require('../actions/Favorite');
-const {sendSuccess, catchError} = require('../helpers/response');
+const {sendSuccess, sendError} = require('../helpers/response');
 
 exports.addFavorite = (req, res) => {
     const {userId} = req;
@@ -7,7 +7,7 @@ exports.addFavorite = (req, res) => {
 
     FavoriteActions.addFavorite({userId, postId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };
 
 exports.removeFavorite = (req, res) => {
@@ -17,5 +17,5 @@ exports.removeFavorite = (req, res) => {
 
     FavoriteActions.removeFavorite({userId, postId, favoriteId})
         .then(sendSuccess(req, res))
-        .catch(catchError(req, res));
+        .catch(sendError(req, res));
 };

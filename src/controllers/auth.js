@@ -1,6 +1,6 @@
 const AuthActions = require('../actions/Auth');
 const isEmail = require('validator/lib/isEmail');
-const {catchError} = require("../helpers/response");
+const {sendError, sendSuccess} = require("../helpers/response");
 
 exports.isAuthorized = (req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['authorization'];
@@ -44,12 +44,8 @@ exports.register = (req, res) => {
     }
 
     AuthActions.register({email, password, name})
-        .then(newUser => {
-            res.send({
-                success: true,
-                data: newUser
-            });
-        }).catch(catchError(req, res));
+        .then(sendSuccess(req, res))
+        .catch(sendError(req, res));
 };
 
 exports.login = (req, res) => {
@@ -74,10 +70,6 @@ exports.login = (req, res) => {
     }
 
     AuthActions.login({email, password})
-        .then(result => {
-            res.send({
-                success: true,
-                data: result
-            });
-        }).catch(catchError(req, res));
+        .then(sendSuccess(req, res))
+        .catch(sendError(req, res));
 };
