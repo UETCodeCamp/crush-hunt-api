@@ -5,7 +5,8 @@ const connection = require('../app.database');
 const commentSchema = new Schema({
     post: {
         type: Schema.ObjectId,
-        index: true
+        index: true,
+        ref: 'Post'
     },
     owner: {
         type: Schema.ObjectId,

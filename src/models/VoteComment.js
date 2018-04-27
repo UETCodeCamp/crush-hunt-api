@@ -6,6 +6,7 @@ const voteCommentSchema = new Schema({
     comment: {
         type: Schema.ObjectId,
         index: true,
+        ref: 'Comment'
     },
     owner: {
         type: Schema.ObjectId,

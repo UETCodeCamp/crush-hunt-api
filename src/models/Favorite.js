@@ -6,6 +6,7 @@ const favoriteSchema = new Schema({
     post: {
         type: Schema.ObjectId,
         index: true,
+        ref: 'Post'
     },
     owner: {
         type: Schema.ObjectId,
