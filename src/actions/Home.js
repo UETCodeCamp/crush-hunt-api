@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const User = require('../models/User');
 
 /**
  * Sort by number of total votes.
@@ -27,6 +28,7 @@ exports.trending = ({page = 1, limit = 10}) => {
         .find({
             status: 'publish'
         })
+        .populate('owner')
         .sort({
             scoreTrend: 1
         })
