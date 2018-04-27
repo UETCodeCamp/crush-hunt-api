@@ -10,6 +10,7 @@ const favoriteSchema = new Schema({
     owner: {
         type: Schema.ObjectId,
         index: true,
+        ref: 'User'
     },
     created: {
         type: Date,

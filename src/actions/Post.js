@@ -22,6 +22,14 @@ exports.update = ({userId, postId, title, url}) => {
 };
 
 exports.create = ({userId, title, url}) => {
+    if (!url) {
+        return Promise.reject(new Error('Url must be not empty.'));
+    }
+
+    if (!title) {
+        return Promise.reject(new Error('Title must be not empty.'));
+    }
+
     const post = new Post({
         owner: userId,
         title,

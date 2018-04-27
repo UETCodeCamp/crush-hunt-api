@@ -10,6 +10,7 @@ const commentSchema = new Schema({
     owner: {
         type: Schema.ObjectId,
         index: true,
+        ref: 'User'
     },
     content: {
         type: String
