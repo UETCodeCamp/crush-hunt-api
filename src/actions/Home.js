@@ -1,5 +1,4 @@
 const Post = require('../models/Post');
-const User = require('../models/User');
 
 /**
  * Sort by number of total votes.
@@ -11,6 +10,7 @@ exports.hot = ({page = 1, limit = 10}) => {
         .find({
             status: 'publish'
         })
+        .populate('owner')
         .sort({
             totalVotes: 1
         })
@@ -46,6 +46,7 @@ exports.fresh = ({page = 1, limit = 10}) => {
         .find({
             status: 'publish'
         })
+        .populate('owner')
         .sort({
             created: 1
         })
