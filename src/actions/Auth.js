@@ -5,7 +5,7 @@ const cryptoHelpers = require('../helpers/crypto');
 
 exports.isAuthorized = (token) => {
     if (token) {
-        const secretKey = appConfig.get('/secretKey');
+        const secretKey = appConfig.get('/jwt/key');
 
         return new Promise((resolve, reject) => {
             JWT.verify(token, secretKey, (err, decoded) => {

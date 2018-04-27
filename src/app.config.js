@@ -1,7 +1,6 @@
 const Confidence = require('confidence');
 
 const config = {
-    secretKey: process.env.GH_SECRET_KEY || '__girl_hunt_vnu__',
     jwt: {
         $filter: "env",
         $default: {
