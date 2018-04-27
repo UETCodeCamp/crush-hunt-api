@@ -25,7 +25,8 @@ exports.create = ({userId, title, url}) => {
     const post = new Post({
         owner: userId,
         title,
-        url
+        url,
+        status: 'publish'
     });
 
     return post.save();
