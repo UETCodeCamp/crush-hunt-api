@@ -27,6 +27,12 @@ const config = {
         $default: 'mongodb://localhost:27017/girl_hunt_app',
         staging: process.env.GH_MONGODB_URI || 'mongodb://localhost:27017/girl_hunt_app_dev',
         production: process.env.GH_MONGODB_URI || 'mongodb://localhost:27017/girl_hunt_app',
+    },
+    sendgrid: {
+        $filter: "env",
+        $default: "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",
+        staging: "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",
+        production: "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"
     }
 };
 

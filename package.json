@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/UETCodeCamp/crush-hunt-api#readme",
   "dependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
     "colors": "^1.2.1",
