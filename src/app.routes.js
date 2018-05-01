@@ -17,6 +17,12 @@ router.post('/login', auth.login);
 router.post('/register', auth.register);
 
 /**
+ * Accounts
+ */
+const account = require('./controllers/account');
+router.post('/accounts/forget-password', account.forgetPassword);
+
+/**
  * Home
  */
 router.get('/home', home.hot);
