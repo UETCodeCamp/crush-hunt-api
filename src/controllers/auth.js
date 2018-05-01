@@ -43,6 +43,13 @@ exports.register = (req, res) => {
         });
     }
 
+    if (!name) {
+        return res.send({
+            success: false,
+            message: 'Your name must be not empty.'
+        });
+    }
+
     AuthActions.register({email, password, name})
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));

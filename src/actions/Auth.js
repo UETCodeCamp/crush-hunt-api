@@ -26,7 +26,7 @@ exports.register = ({email, password, name = ''}) => {
         email
     }).then(user => {
         if (user) {
-            throw new Error('User exists.');
+            throw new Error('Your account already exists.');
         }
 
         return cryptoHelpers.hashPassword(password)
@@ -47,7 +47,7 @@ exports.login = ({email, password}) => {
         email
     }).then(user => {
         if (!user) {
-            throw new Error('User not found!');
+            throw new Error('User not found. You can register now.');
         }
 
         const hashPassword = user.get('password');
