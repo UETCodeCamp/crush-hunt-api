@@ -63,3 +63,7 @@ typings/
 .next
 
 tmp/
+
+*.env
+
+package-lock.json
