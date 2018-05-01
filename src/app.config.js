@@ -30,9 +30,9 @@ const config = {
     },
     sendgrid: {
         $filter: "env",
-        $default: "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",
-        staging: "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",
-        production: "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"
+        $default: process.env.SG_API_KEY || '',
+        staging: process.env.SG_API_KEY || '',
+        production: process.env.SG_API_KEY || '',
     }
 };
 
