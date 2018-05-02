@@ -2,6 +2,21 @@ const AuthActions = require('../actions/Auth');
 const isEmail = require('validator/lib/isEmail');
 const {sendError, sendSuccess} = require("../helpers/response");
 
+exports.maybeAuthorized = (req, res, next) => {
+    const token = req.body.token || req.query.token || req.headers['authorization'] || '';
+
+    AuthActions.isAuthorized(token)
+        .then(result => {
+            const {id} = result;
+            req['userId'] = id;
+
+            return next();
+        })
+        .catch(error => {
+            next();
+        });
+};
+
 exports.isAuthorized = (req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['authorization'];
 

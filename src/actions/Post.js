@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const VotePost = require('../models/VotePost');
 const Moment = require('moment');
 const {getScoreTrending} = require("../helpers/common");
 
@@ -41,10 +42,33 @@ exports.create = ({userId, title, url}) => {
 };
 
 exports.detail = ({postId, userId}) => {
-    console.log(userId);
-
     return Post.findById(postId)
-        .populate('owner');
+        .populate('owner')
+        .then(post => {
+            if (!post) {
+                throw new Error('Post not found!');
+            }
+
+            return Promise.resolve(post);
+        })
+        .then(post => {
+            const postId = post.get('_id');
+            const postObject = post.toJSON();
+
+            if (userId) {
+                return VotePost.findOne({
+                    owner: userId,
+                    post: postId,
+                }).then(vote => {
+                    const voted = !!vote;
+                    const object = Object.assign({}, postObject, {voted});
+
+                    return Promise.resolve(object);
+                });
+            }
+
+            return Promise.resolve(postObject);
+        });
 };
 
 exports.delete = ({userId, postId}) => {

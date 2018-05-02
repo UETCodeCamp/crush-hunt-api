@@ -34,11 +34,11 @@ router.get('/home/fresh', home.fresh);
  * Posts
  */
 router.get('/posts/pending', post.listPendingPosts);
-router.get('/posts/:id', post.detail);
 router.post('/posts/upload', upload.single('image'), post.upload);
 router.post('/posts', auth.isAuthorized, post.create);
 router.put('/posts/:id', auth.isAuthorized, post.update);
 router.delete('/posts/:id', auth.isAuthorized, post.delete);
+router.get('/posts/:id', auth.maybeAuthorized, post.detail);
 
 router.get('/posts/:id/comments', comment.listFreshComments);
 router.get('/posts/:id/comments/hot', comment.listHotComments);
