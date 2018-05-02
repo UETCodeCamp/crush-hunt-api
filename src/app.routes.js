@@ -25,10 +25,10 @@ router.post('/accounts/forget-password', account.forgetPassword);
 /**
  * Home
  */
-router.get('/home', home.hot);
-router.get('/home/hot', home.hot);
-router.get('/home/trending', home.trending);
-router.get('/home/fresh', home.fresh);
+router.get('/home', auth.maybeAuthorized, home.hot);
+router.get('/home/hot', auth.maybeAuthorized, home.hot);
+router.get('/home/trending', auth.maybeAuthorized, home.trending);
+router.get('/home/fresh', auth.maybeAuthorized, home.fresh);
 
 /**
  * Posts

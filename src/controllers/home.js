@@ -25,11 +25,13 @@ exports.trending = (req, res) => {
     };
 
     const {page, limit} = Object.assign({}, defaultArgs, req.query);
+    const {userId} = req;
 
     HomeActions
         .trending({
             page: parseInt(page, 10),
-            limit: parseInt(limit, 10)
+            limit: parseInt(limit, 10),
+            userId
         })
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
