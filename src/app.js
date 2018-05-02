@@ -17,16 +17,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
+app.use(errorHandler());
 
 /**
  * Config routes.
  */
 app.use(require('./app.routes'));
-
-/**
- * Error Handler.
- */
-app.use(errorHandler());
 
 /**
  * Start Express server.
