@@ -106,12 +106,29 @@ exports.computedScoreTrending = (postId) => {
             const age = now.diff(published);
             const score = getScoreTrending(totalVotes, age);
 
+            console.log(score);
+
             return post.update({
                 $set: {
-                    scoreTrend: score
+                    scoreTrend: score.toFixed(5)
                 }
             });
         }).then(() => {
             return Post.findById(postId);
         });
+};
+
+exports.computedTotalVotes = (postId) => {
+    return Promise.all([
+        Post.findById(postId),
+        VotePost.count({post: postId})
+    ]).then(([post, totalVotes]) => {
+        if (!post) {
+            throw new Error('Post not found.');
+        }
+
+        post.totalVotes = totalVotes;
+
+        return post.save();
+    });
 };
