@@ -21,6 +21,7 @@ router.post('/register', auth.register);
  */
 const account = require('./controllers/account');
 router.post('/accounts/forget-password', account.forgetPassword);
+router.post('/accounts/reset-password', account.resetPassword);
 
 /**
  * Home

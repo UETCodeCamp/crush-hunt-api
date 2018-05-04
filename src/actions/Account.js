@@ -5,6 +5,10 @@ const appConfig = require('../app.config');
 
 const appUrl = appConfig.get('/appUrl');
 
+exports.resetPassword = ({token, password, email}) => {
+
+};
+
 exports.forgetPassword = ({email}) => {
     return User.findOne({
         email
@@ -24,13 +28,14 @@ exports.forgetPassword = ({email}) => {
             });
     }).then(user => {
         const resetPasswordToken = user.get('resetPasswordToken');
+        const email = user.email;
 
         EmailServices.sendMail({
             to: user.email,
             from: 'hi@crushunt.me',
             subject: '[Crush Hunt]Reset your password',
             html: `
-               You can change password at: <a href="${appUrl}/reset-password/${resetPasswordToken}">Change password</a>.
+               You can change password at: <a href="${appUrl}/reset-password/${resetPasswordToken}?email=${email}">Change password</a>.
             `,
         });
 

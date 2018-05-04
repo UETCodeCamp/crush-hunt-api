@@ -2,7 +2,6 @@ const AccountActions = require('../actions/Account');
 const {sendSuccess, sendError} = require('../helpers/response');
 const isEmail = require('validator/lib/isEmail');
 
-
 exports.forgetPassword = (req, res) => {
     const defaultArgs = {
         email: ''
@@ -18,6 +17,20 @@ exports.forgetPassword = (req, res) => {
     }
 
     AccountActions.forgetPassword({email})
+        .then(sendSuccess(req, res))
+        .catch(sendError(req, res));
+};
+
+exports.resetPassword = (req, res) => {
+    const defaultArgs = {
+        token: '',
+        password: '',
+        email: ''
+    };
+
+    const {token, email, password} = Object.assign({}, defaultArgs, req.body);
+
+    AccountActions.resetPassword({token, email, password})
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };
