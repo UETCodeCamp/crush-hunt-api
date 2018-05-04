@@ -16,6 +16,12 @@ const config = {
             expires: '7 days'
         }
     },
+    appUrl: {
+        $filter: "env",
+        $default: "https://crushunt.netlify.com",
+        staging: "https://crushunt.netlify.com",
+        production: "https://crushunt.netlify.com",
+    },
     port: {
         $filter: "env",
         $default: 6001,
