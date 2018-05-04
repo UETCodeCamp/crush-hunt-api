@@ -52,7 +52,7 @@ router.post('/posts/:id/vote', auth.isAuthorized, post.vote);
 router.post('/posts/:id/un-vote', auth.isAuthorized, post.unVote);
 
 router.post('/posts/:id/favorites', auth.isAuthorized, favorite.addFavorite);
-router.delete('/posts/:id/favorites/:favoriteId', auth.isAuthorized, favorite.removeFavorite);
+router.delete('/posts/:id/favorites', auth.isAuthorized, favorite.removeFavorite);
 
 /**
  * Users

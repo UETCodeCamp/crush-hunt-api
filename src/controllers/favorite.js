@@ -13,9 +13,8 @@ exports.addFavorite = (req, res) => {
 exports.removeFavorite = (req, res) => {
     const {userId} = req;
     const postId = req.params['id'];
-    const {favoriteId} = req.params;
 
-    FavoriteActions.removeFavorite({userId, postId, favoriteId})
+    FavoriteActions.removeFavorite({userId, postId})
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };

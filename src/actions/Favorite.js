@@ -18,9 +18,9 @@ exports.addFavorite = ({userId, postId}) => {
     });
 };
 
-exports.removeFavorite = ({userId, favoriteId, postId}) => {
+exports.removeFavorite = ({userId, postId}) => {
     return Favorite.findOne({
-        _id: favoriteId,
+        post: postId,
         owner: userId
     }).then(favorite => {
         if (!favorite) {
