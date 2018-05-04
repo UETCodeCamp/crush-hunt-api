@@ -30,6 +30,27 @@ exports.resetPassword = (req, res) => {
 
     const {token, email, password} = Object.assign({}, defaultArgs, req.body);
 
+    if (!token) {
+        return res.send({
+            success: false,
+            message: 'Token must be is not empty.'
+        });
+    }
+
+    if (!email || !isEmail(email)) {
+        return res.send({
+            success: false,
+            message: 'Your email address is invalid.'
+        });
+    }
+
+    if (!password || password.length < 8) {
+        return res.send({
+            success: false,
+            message: 'Your password must be at least 8 characters in length.'
+        });
+    }
+
     AccountActions.resetPassword({token, email, password})
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));

@@ -74,3 +74,18 @@ exports.login = ({email, password}) => {
             });
     });
 };
+
+exports.changePassword = ({userId, password}) => {
+    return User.findById(userId).then(user => {
+        if (!user) {
+            throw new Error('User not found.');
+        }
+
+        return cryptoHelpers.hashPassword(password)
+            .then(hashPassword => {
+                user.password = hashPassword;
+
+                return user.save();
+            });
+    }).then(() => Promise.resolve(true));
+};
