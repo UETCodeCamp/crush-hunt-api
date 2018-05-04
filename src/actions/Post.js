@@ -2,6 +2,8 @@ const Post = require('../models/Post');
 const VotePost = require('../models/VotePost');
 const Moment = require('moment');
 const {getScoreTrending} = require("../helpers/common");
+const VotePostActions = require('./VotePost');
+const FavoriteActions = require('./Favorite');
 
 exports.update = ({userId, postId, title, url}) => {
     return Post.findOne({
@@ -56,12 +58,11 @@ exports.detail = ({postId, userId}) => {
             const postObject = post.toJSON();
 
             if (userId) {
-                return VotePost.findOne({
-                    owner: userId,
-                    post: postId,
-                }).then(vote => {
-                    const voted = !!vote;
-                    const object = Object.assign({}, postObject, {voted});
+                return Promise.all([
+                    VotePostActions.isVoted({userId, postId}),
+                    FavoriteActions.isAdded({userId, postId})
+                ]).then(([voted, saved]) => {
+                    const object = Object.assign({}, postObject, {voted, saved});
 
                     return Promise.resolve(object);
                 });

@@ -1,5 +1,14 @@
 const Favorite = require('../models/Favorite');
 
+exports.isAdded = ({userId, postId}) => {
+    return Favorite.findOne({
+        post: postId,
+        owner: userId
+    }).then(favorite => {
+        return Promise.resolve(!!favorite);
+    });
+};
+
 exports.addFavorite = ({userId, postId}) => {
     return Favorite.findOne({
         post: postId,

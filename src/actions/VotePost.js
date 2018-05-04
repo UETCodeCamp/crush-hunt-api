@@ -3,9 +3,12 @@ const Post = require('../models/Post');
 const {MINIMUM_VOTES_TO_PUBLISH} = require('../constants/post');
 const PostActions = require('../actions/Post');
 
-const _getTotalVotes = (postId) => {
-    return VotePost.count({
-        post: postId
+exports.isVoted = ({userId, postId}) => {
+    return VotePost.findOne({
+        post: postId,
+        owner: userId
+    }).then(vote => {
+        return Promise.resolve(!!vote);
     });
 };
 
