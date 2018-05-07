@@ -64,6 +64,8 @@ exports.forgetPassword = ({email}) => {
             html: `
                You can change password at: <a href="${appUrl}/reset-password/${resetPasswordToken}?email=${email}">Change password</a>.
             `,
+        }).catch(error => {
+            console.log('SEND_MAIL', error);
         });
 
         return Promise.resolve(true);
