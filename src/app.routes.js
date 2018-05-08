@@ -65,6 +65,12 @@ router.get('/users/my-votes', auth.isAuthorized, user.myVotes);
 router.get('/users/my-favorites', auth.isAuthorized, user.myFavorites);
 
 /**
+ * Public users.
+ */
+const publicUser = require('./controllers/publicUser');
+router.get('/public/:userId/avatar', publicUser.getAvatar);
+
+/**
  * Exports.
  */
 module.exports = router;
