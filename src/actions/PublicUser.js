@@ -14,7 +14,7 @@ exports.getAvatar = (userId) => {
             const email = user.get('email');
             const md5Email = md5(email);
 
-            return Promise.resolve(`https://www.gravatar.com/avatar/${md5Email}.jpg`);
+            return Promise.resolve(`https://www.gravatar.com/avatar/${md5Email}.jpg?s=150`);
         })
         .catch(error => {
             return Promise.resolve('https://www.gravatar.com/avatar');
