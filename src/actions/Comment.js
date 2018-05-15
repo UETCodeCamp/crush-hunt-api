@@ -1,3 +1,4 @@
+const User = require('../models/User');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
@@ -48,6 +49,16 @@ exports.addComment = ({userId, postId, content}) => {
                 .then(() => {
                     return Promise.resolve(comment);
                 });
+        }).then(comment => {
+            const owner = comment.get('owner');
+            const objectComment = comment.toObject();
+
+            return User.findById(owner)
+                .then(user => {
+                    const computedComment = Object.assign({}, objectComment, {owner: user});
+
+                    return Promise.resolve(computedComment);
+                });
         });
 };
 
@@ -74,9 +85,12 @@ exports.listHostComments = ({postId}) => {
  * Sort by created time.
  */
 exports.listFreshComments = ({postId}) => {
-    return Comment.find({
-        post: postId
-    }).sort({
-        created: 1
-    });
+    return Comment
+        .find({
+            post: postId
+        })
+        .populate('owner')
+        .sort({
+            created: 1
+        });
 };
